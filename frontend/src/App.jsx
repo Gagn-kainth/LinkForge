@@ -1,29 +1,23 @@
-import Hero from "./components/Hero";
-import ShortenForm from "./components/ShortenForm";
-import ResultCard from "./components/ResultCard";
-import LinkLog from "./components/LinkLog";
-import { useShortener } from "./hooks/useShortener";
-import { shortUrlFor } from "./api";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 export default function App() {
-  const { result, links, loadingLinks, formError, submitting, shorten } =
-    useShortener();
-
   return (
-    <div className="app">
-      <Hero />
-
-      <ShortenForm onSubmit={shorten} submitting={submitting} error={formError} />
-
-      {result && (
-        <ResultCard
-          key={result.id}
-          longUrl={result.longUrl}
-          shortUrl={shortUrlFor(result.id)}
-        />
-      )}
-
-      <LinkLog links={links} loading={loadingLinks} />
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Navbar />
+        <div className="app">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
