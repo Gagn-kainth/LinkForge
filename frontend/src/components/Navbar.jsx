@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-brand">
-        Snip<span className="navbar-brand-dot">.</span>
+        LinkForge<span className="navbar-brand-dot">.</span>
       </Link>
 
       {isLoggedIn ? (
