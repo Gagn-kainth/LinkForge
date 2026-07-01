@@ -16,17 +16,29 @@ if (!process.env.JWT_SECRET) {
   );
 }
 
-const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  "http://localhost:5173",
-].filter(Boolean);
-app.use(cors({ origin: allowedOrigins }));
+const allowedOrigins = [process.env.FRONTEND_URL, "http://localhost:5173"];
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      console.log("Origin:", origin);
+
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 app.get("/", (req, res) => res.json({ status: "LinkForge API is running" }));
 
-app.use("/auth", authRoute);
-app.use("/url", urlRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/url", urlRoute);
 
 connectToMongoDB(MONGO_URI)
   .then(() => console.log("Mongodb connected"))
