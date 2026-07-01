@@ -8,8 +8,8 @@ const authRoute = require("./routes/auth");
 const app = express();
 const PORT = process.env.PORT || 8001;
 const MONGO_URI =
-  process.env.MONGO_URI || "mongodb://127.0.0.1:27017/short-url";
-
+  // process.env.MONGO_URI || "mongodb://localhost:27017/linkforge";
+  process.env.MONGO_URI;
 if (!process.env.JWT_SECRET) {
   console.warn(
     "WARNING: JWT_SECRET is not set ; set one before using login/signup."

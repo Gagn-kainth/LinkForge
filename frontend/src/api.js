@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8001";
+const API_BASE = "/api";
 
 const TOKEN_KEY = "linkforge_token";
 
