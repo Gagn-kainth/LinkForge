@@ -8,6 +8,7 @@ async function handleGenerateNewShortURL(req, res) {
   await URL.create({
     shortId: shortID,
     redirectUrl: body.url,
+    user: req.user ? req.user.id : null,
     visitHistory: [],
   });
   return res.json({ id: shortID });
@@ -34,14 +35,23 @@ async function handleShortId(req, res) {
 
   return res.redirect(entry.redirectUrl);
 }
-async function handleGetAnalytics(req,res) {
-    const shortId =req.params.shortId;
-    const result = await URL.findOne({shortId});
-    return res.json({totalClicks :result.visitHistory.length,  analytics : result.visitHistory})
-    
+
+async function handleGetAnalytics(req, res) {
+  const shortId = req.params.shortId;
+  const result = await URL.findOne({ shortId });
+
+  if (!result) {
+    return res.status(404).json({ error: "URL not found" });
+  }
+
+  return res.json({
+    totalClicks: result.visitHistory.length,
+    analytics: result.visitHistory,
+  });
 }
-async function handleGetAllUrls(req, res) {
-  const results = await URL.find({}).sort({ createdAt: -1 });
+
+async function handleGetMyUrls(req, res) {
+  const results = await URL.find({ user: req.user.id }).sort({ createdAt: -1 });
 
   const urls = results.map((entry) => ({
     id: entry.shortId,
@@ -53,10 +63,9 @@ async function handleGetAllUrls(req, res) {
   return res.json({ urls });
 }
 
-
 module.exports = {
   handleGenerateNewShortURL,
   handleShortId,
   handleGetAnalytics,
-  handleGetAllUrls,
+  handleGetMyUrls,
 };

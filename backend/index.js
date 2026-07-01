@@ -1,22 +1,37 @@
-const express = require('express');
-const cors = require('cors');
-const{connectToMongoDB}=require("./connect")
-const urlRoute= require("./routes/url")
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const { connectToMongoDB } = require("./connect");
+const urlRoute = require("./routes/url");
+const authRoute = require("./routes/auth");
 
 const app = express();
-const PORT = 8001;
+const PORT = process.env.PORT || 8001;
+const MONGO_URI =
+  process.env.MONGO_URI || "mongodb://127.0.0.1:27017/short-url";
 
-// middleware
-app.use(cors());
+if (!process.env.JWT_SECRET) {
+  console.warn(
+    "WARNING: JWT_SECRET is not set ; set one before using login/signup."
+  );
+}
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173",
+].filter(Boolean);
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
+app.get("/", (req, res) => res.json({ status: "LinkForge API is running" }));
 
-app.use("/url",urlRoute)
+app.use("/auth", authRoute);
+app.use("/url", urlRoute);
 
-connectToMongoDB('mongodb://127.0.0.1:27017/short-url')
-.then(()=>console.log('Mongodb connected'))
-
+connectToMongoDB(MONGO_URI)
+  .then(() => console.log("Mongodb connected"))
+  .catch((err) => console.error("Mongodb connection error:", err.message));
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

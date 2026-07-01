@@ -4,11 +4,12 @@ const {
   handleGenerateNewShortURL,
   handleShortId,
   handleGetAnalytics,
-  handleGetAllUrls,
+  handleGetMyUrls,
 } = require("../controllers/url");
+const { optionalAuth, requireAuth } = require("../middleware/auth");
 
-router.post("/", handleGenerateNewShortURL);
-router.get("/", handleGetAllUrls);
+router.post("/", optionalAuth, handleGenerateNewShortURL);
+router.get("/mine", requireAuth, handleGetMyUrls);
 router.get("/analytics/:shortId", handleGetAnalytics);
 router.get("/:shortId", handleShortId);
 
