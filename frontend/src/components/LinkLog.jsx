@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { shortUrlFor } from "../api";
 import "./LinkLog.css";
 
@@ -16,7 +17,7 @@ function LogRow({ index, link }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-    
+      
     }
   }
 
@@ -46,20 +47,31 @@ function LogRow({ index, link }) {
   );
 }
 
-export default function LinkLog({ links, loading }) {
+export default function LinkLog({ links, loading, isLoggedIn }) {
   return (
     <section className="log-section">
       <span className="eyebrow">02 — your links</span>
 
-      {loading && <p className="log-empty">Loading your links…</p>}
-
-      {!loading && links.length === 0 && (
+      {!isLoggedIn && (
         <p className="log-empty">
-          Nothing Forged yet. Your links will collect here as you create them.
+          <Link to="/signup" className="log-empty-link">
+            Create an account
+          </Link>{" "}
+          to save every link you shorten to a dashboard like this one.
         </p>
       )}
 
-      {!loading && links.length > 0 && (
+      {isLoggedIn && loading && (
+        <p className="log-empty">Loading your links…</p>
+      )}
+
+      {isLoggedIn && !loading && links.length === 0 && (
+        <p className="log-empty">
+          Nothing snipped yet. Your links will collect here as you create them.
+        </p>
+      )}
+
+      {isLoggedIn && !loading && links.length > 0 && (
         <div className="log-list">
           {links.map((link, i) => (
             <LogRow key={link.id} index={i} link={link} />

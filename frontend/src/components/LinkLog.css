@@ -11,6 +11,16 @@
   text-align: center;
 }
 
+.log-empty-link {
+  color: var(--gold-soft);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.log-empty-link:hover {
+  text-decoration: underline;
+}
+
 .log-list {
   border: 1px solid var(--border);
   border-radius: 14px;
