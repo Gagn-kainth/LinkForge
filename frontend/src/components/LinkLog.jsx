@@ -55,7 +55,7 @@ export default function LinkLog({ links, loading }) {
 
       {!loading && links.length === 0 && (
         <p className="log-empty">
-          Nothing snipped yet. Your links will collect here as you create them.
+          Nothing Forged yet. Your links will collect here as you create them.
         </p>
       )}
 

@@ -1,0 +1,83 @@
+.shorten-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.shorten-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.shorten-row {
+  display: flex;
+  gap: 10px;
+}
+
+.shorten-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  padding: 14px 16px;
+  min-width: 0;
+  transition: border-color 0.15s ease;
+}
+
+.shorten-input::placeholder {
+  color: #5c5775;
+}
+
+.shorten-input:focus {
+  border-color: var(--gold);
+}
+
+.shorten-button {
+  background: var(--gold);
+  color: #201607;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 22px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.shorten-button:hover:not(:disabled) {
+  background: var(--gold-soft);
+}
+
+.shorten-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.shorten-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.shorten-hint {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.shorten-hint-error {
+  color: var(--danger);
+}
+
+@media (max-width: 480px) {
+  .shorten-row {
+    flex-direction: column;
+  }
+}

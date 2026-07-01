@@ -1,0 +1,108 @@
+.log-section {
+  margin-top: 56px;
+}
+
+.log-empty {
+  color: var(--text-muted);
+  font-size: 14px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.log-list {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.log-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--surface);
+}
+
+.log-row + .log-row {
+  border-top: 1px solid var(--border);
+}
+
+.log-index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.log-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.log-short {
+  font-family: var(--font-mono);
+  color: var(--gold-soft);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.log-short:hover {
+  text-decoration: underline;
+}
+
+.log-long {
+  color: var(--text-muted);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.log-clicks {
+  font-size: 12px;
+  color: var(--teal-soft);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.log-copy {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.log-copy:hover {
+  border-color: var(--teal);
+  color: var(--text);
+}
+
+@media (max-width: 560px) {
+  .log-row {
+    grid-template-columns: 24px 1fr;
+    grid-template-areas:
+      "index main"
+      "clicks copy";
+  }
+  .log-index {
+    grid-area: index;
+  }
+  .log-main {
+    grid-area: main;
+  }
+  .log-clicks {
+    grid-area: clicks;
+  }
+  .log-copy {
+    grid-area: copy;
+    justify-self: start;
+  }
+}

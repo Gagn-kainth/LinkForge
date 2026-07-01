@@ -45,7 +45,7 @@ export default function ShortenForm({ onSubmit, submitting, error }) {
           className="shorten-input"
         />
         <button type="submit" className="shorten-button" disabled={submitting}>
-          {submitting ? "Snipping…" : "Snip it"}
+          {submitting ? "Forging…" : "Forge it"}
         </button>
       </div>
       {touched && !valid && (
