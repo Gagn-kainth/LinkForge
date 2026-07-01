@@ -40,9 +40,23 @@ async function handleGetAnalytics(req,res) {
     return res.json({totalClicks :result.visitHistory.length,  analytics : result.visitHistory})
     
 }
+async function handleGetAllUrls(req, res) {
+  const results = await URL.find({}).sort({ createdAt: -1 });
+
+  const urls = results.map((entry) => ({
+    id: entry.shortId,
+    redirectUrl: entry.redirectUrl,
+    totalClicks: entry.visitHistory.length,
+    createdAt: entry.createdAt,
+  }));
+
+  return res.json({ urls });
+}
+
 
 module.exports = {
   handleGenerateNewShortURL,
   handleShortId,
   handleGetAnalytics,
+  handleGetAllUrls,
 };
