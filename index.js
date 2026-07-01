@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const{connectToMongoDB}=require("./connect")
 const urlRoute= require("./routes/url")
 
@@ -6,6 +7,7 @@ const app = express();
 const PORT = 8001;
 
 // middleware
+app.use(cors());
 app.use(express.json());
 
 
