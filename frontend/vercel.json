@@ -1,8 +1,12 @@
 {
-    "rewrites": [
-      {
-        "source": "/api/(.*)",
-        "destination": "https://linkforge-1-he34.onrender.com/$1"
-      }
-    ]
-  }
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://linkforge-1-he34.onrender.com/api/$1"
+    },
+    {
+      "source": "/:shortId",
+      "destination": "https://linkforge-1-he34.onrender.com/api/url/:shortId"
+    }
+  ]
+}
