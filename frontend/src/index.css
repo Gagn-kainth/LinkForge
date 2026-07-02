@@ -28,20 +28,14 @@ body,
 
 body {
   margin: 0;
-  background: var(--bg);
-}
-
-.app {
   min-height: 100vh;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 64px 24px 96px;
+
+  background: #14121f;
 
   background-image:
-    radial-gradient(circle at top left, rgba(232,163,61,.08), transparent 35%),
-    radial-gradient(circle at top right, rgba(63,167,150,.08), transparent 40%);
+    radial-gradient(circle at 15% 0%, rgba(232,163,61,.08), transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(63,167,150,.08), transparent 45%);
 }
-
 button {
   font-family: inherit;
 }
