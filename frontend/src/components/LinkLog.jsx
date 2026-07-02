@@ -24,7 +24,9 @@ function LogRow({ index, link, onDelete }) {
   }
 
   async function handleDelete() {
-    const confirmed = window.confirm(`Delete /${link.id}? This can't be undone.`);
+    const confirmed = window.confirm(
+      `Delete /${link.id}? This can't be undone.`
+    );
     if (!confirmed) return;
 
     setDeleteError("");
@@ -57,12 +59,20 @@ function LogRow({ index, link, onDelete }) {
       <span className="log-clicks">
         {link.totalClicks} {link.totalClicks === 1 ? "click" : "clicks"}
       </span>
-      <button className="log-copy" onClick={handleCopy}>
-        {copied ? "Copied" : "Copy"}
-      </button>
-      <button className="log-delete" onClick={handleDelete} disabled={deleting}>
-        {deleting ? "Deleting…" : "Delete"}
-      </button>
+
+      <div className="log-actions">
+        <button className="log-copy" onClick={handleCopy}>
+          {copied ? "Copied" : "Copy"}
+        </button>
+
+        <button
+          className="log-delete"
+          onClick={handleDelete}
+          disabled={deleting}
+        >
+          {deleting ? "Deleting…" : "Delete"}
+        </button>
+      </div>
     </div>
   );
 }

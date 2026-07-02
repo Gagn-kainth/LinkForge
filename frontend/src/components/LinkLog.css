@@ -130,21 +130,24 @@
       "index main"
       "clicks actions";
   }
+
   .log-index {
     grid-area: index;
   }
+
   .log-main {
     grid-area: main;
   }
+
   .log-clicks {
     grid-area: clicks;
   }
-  .log-copy,
-  .log-delete {
+
+  .log-actions {
     grid-area: actions;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     justify-self: start;
-  }
-  .log-delete {
-    margin-left: 8px;
   }
 }
