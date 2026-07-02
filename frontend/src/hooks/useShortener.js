@@ -27,6 +27,23 @@ export function useShortener(isLoggedIn) {
   useEffect(() => {
     refreshLinks();
   }, [refreshLinks]);
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    function handleVisibility() {
+      if (document.visibilityState === "visible") {
+        refreshLinks();
+      }
+    }
+
+    window.addEventListener("focus", refreshLinks);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      window.removeEventListener("focus", refreshLinks);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [isLoggedIn, refreshLinks]);
 
   async function shorten(longUrl) {
     setFormError("");
@@ -42,11 +59,18 @@ export function useShortener(isLoggedIn) {
     }
   }
 
-
   async function deleteLink(shortId) {
     await deleteUrl(shortId);
     setLinks((prev) => prev.filter((link) => link.id !== shortId));
   }
 
-  return { result, links, loadingLinks, formError, submitting, shorten, deleteLink };
+  return {
+    result,
+    links,
+    loadingLinks,
+    formError,
+    submitting,
+    shorten,
+    deleteLink,
+  };
 }
