@@ -97,20 +97,27 @@
 
 @media (max-width: 560px) {
   .log-row {
-    grid-template-columns: 24px 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "index main"
-      "clicks copy";
+      "index"
+      "main"
+      "clicks"
+      "copy";
+    gap: 10px;
   }
+
   .log-index {
     grid-area: index;
   }
+
   .log-main {
     grid-area: main;
   }
+
   .log-clicks {
     grid-area: clicks;
   }
+
   .log-copy {
     grid-area: copy;
     justify-self: start;
