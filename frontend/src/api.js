@@ -1,6 +1,10 @@
 const API_BASE = import.meta.env.PROD
   ? import.meta.env.VITE_API_URL
   : "http://localhost:8001";
+ 
+ const FRONTEND_URL = import.meta.env.PROD
+  ? "https://linkforgebygg.vercel.app"
+  : "http://localhost:5173";
   
 const TOKEN_KEY = "linkforge_token";
 
@@ -49,7 +53,7 @@ export function getAnalytics(shortId) {
 }
 
 export function shortUrlFor(shortId) {
-  return `${API_BASE}/url/${shortId}`;
+  return `${FRONTEND_URL}/${shortId}`;
 }
 
 export function signup(email, password) {
