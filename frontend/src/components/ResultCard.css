@@ -20,9 +20,10 @@
 
 .result-chain {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 10px;
+
   font-family: var(--font-mono);
   font-size: 14px;
 }
@@ -42,12 +43,14 @@
   color: var(--teal-soft);
   font-size: 17px;
   font-weight: 600;
+
+  width: 100%;
+  min-width: 0;
+
   overflow-wrap: anywhere;
   word-break: break-word;
   white-space: normal;
-  max-width: 100%;
 }
-
 .result-actions {
   display: flex;
   gap: 10px;
