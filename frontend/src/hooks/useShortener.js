@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { createShortUrl, getMyUrls } from "../api";
-
+import { createShortUrl, getMyUrls, deleteUrl } from "../api";
 
 export function useShortener(isLoggedIn) {
   const [result, setResult] = useState(null);
@@ -43,5 +42,11 @@ export function useShortener(isLoggedIn) {
     }
   }
 
-  return { result, links, loadingLinks, formError, submitting, shorten };
+
+  async function deleteLink(shortId) {
+    await deleteUrl(shortId);
+    setLinks((prev) => prev.filter((link) => link.id !== shortId));
+  }
+
+  return { result, links, loadingLinks, formError, submitting, shorten, deleteLink };
 }

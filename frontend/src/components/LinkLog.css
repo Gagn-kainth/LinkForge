@@ -29,7 +29,7 @@
 
 .log-row {
   display: grid;
-  grid-template-columns: 32px 1fr auto auto;
+  grid-template-columns: 32px 1fr auto auto auto;
   align-items: center;
   gap: 14px;
   padding: 14px 18px;
@@ -72,6 +72,12 @@
   white-space: nowrap;
 }
 
+.log-delete-error {
+  color: var(--danger);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
 .log-clicks {
   font-size: 12px;
   color: var(--teal-soft);
@@ -95,31 +101,50 @@
   color: var(--text);
 }
 
+.log-delete {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.log-delete:hover:not(:disabled) {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.log-delete:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 @media (max-width: 560px) {
   .log-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 24px 1fr;
     grid-template-areas:
-      "index"
-      "main"
-      "clicks"
-      "copy";
-    gap: 10px;
+      "index main"
+      "clicks actions";
   }
-
   .log-index {
     grid-area: index;
   }
-
   .log-main {
     grid-area: main;
   }
-
   .log-clicks {
     grid-area: clicks;
   }
-
-  .log-copy {
-    grid-area: copy;
+  .log-copy,
+  .log-delete {
+    grid-area: actions;
     justify-self: start;
+  }
+  .log-delete {
+    margin-left: 8px;
   }
 }

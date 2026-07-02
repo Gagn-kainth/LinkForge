@@ -1,11 +1,11 @@
 const API_BASE = import.meta.env.PROD
   ? import.meta.env.VITE_API_URL
   : "http://localhost:8001";
- 
- const FRONTEND_URL = import.meta.env.PROD
+
+const FRONTEND_URL = import.meta.env.PROD
   ? "https://linkforgebygg.vercel.app"
   : "http://localhost:5173";
-  
+
 const TOKEN_KEY = "linkforge_token";
 
 export function getToken() {
@@ -68,4 +68,7 @@ export function fetchMe() {
   return request("/auth/me");
 }
 
+export function deleteUrl(shortId) {
+  return request(`/url/${shortId}`, { method: "DELETE" });
+}
 export { API_BASE };

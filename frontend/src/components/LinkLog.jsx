@@ -7,8 +7,10 @@ function truncate(url, max = 34) {
   return url.length > max ? `${url.slice(0, max - 1)}…` : url;
 }
 
-function LogRow({ index, link }) {
+function LogRow({ index, link, onDelete }) {
   const [copied, setCopied] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
   const shortUrl = shortUrlFor(link.id);
 
   async function handleCopy() {
@@ -17,7 +19,21 @@ function LogRow({ index, link }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      
+      /* no-op */
+    }
+  }
+
+  async function handleDelete() {
+    const confirmed = window.confirm(`Delete /${link.id}? This can't be undone.`);
+    if (!confirmed) return;
+
+    setDeleteError("");
+    setDeleting(true);
+    try {
+      await onDelete(link.id);
+    } catch (err) {
+      setDeleteError(err.message || "Couldn't delete that link.");
+      setDeleting(false);
     }
   }
 
@@ -36,6 +52,7 @@ function LogRow({ index, link }) {
         <span className="log-long" title={link.redirectUrl}>
           {truncate(link.redirectUrl)}
         </span>
+        {deleteError && <span className="log-delete-error">{deleteError}</span>}
       </div>
       <span className="log-clicks">
         {link.totalClicks} {link.totalClicks === 1 ? "click" : "clicks"}
@@ -43,11 +60,14 @@ function LogRow({ index, link }) {
       <button className="log-copy" onClick={handleCopy}>
         {copied ? "Copied" : "Copy"}
       </button>
+      <button className="log-delete" onClick={handleDelete} disabled={deleting}>
+        {deleting ? "Deleting…" : "Delete"}
+      </button>
     </div>
   );
 }
 
-export default function LinkLog({ links, loading, isLoggedIn }) {
+export default function LinkLog({ links, loading, isLoggedIn, onDelete }) {
   return (
     <section className="log-section">
       <span className="eyebrow">02 — your links</span>
@@ -74,7 +94,7 @@ export default function LinkLog({ links, loading, isLoggedIn }) {
       {isLoggedIn && !loading && links.length > 0 && (
         <div className="log-list">
           {links.map((link, i) => (
-            <LogRow key={link.id} index={i} link={link} />
+            <LogRow key={link.id} index={i} link={link} onDelete={onDelete} />
           ))}
         </div>
       )}

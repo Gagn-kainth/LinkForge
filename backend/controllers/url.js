@@ -62,10 +62,22 @@ async function handleGetMyUrls(req, res) {
 
   return res.json({ urls });
 }
+async function handleDeleteUrl(req, res) {
+  const { shortId } = req.params;
+
+  const deleted = await URL.findOneAndDelete({ shortId, user: req.user.id });
+
+  if (!deleted) {
+    return res.status(404).json({ error: "Link not found" });
+  }
+
+  return res.json({ deleted: true });
+}
 
 module.exports = {
   handleGenerateNewShortURL,
   handleShortId,
   handleGetAnalytics,
   handleGetMyUrls,
+  handleDeleteUrl,
 };

@@ -8,7 +8,7 @@ import { shortUrlFor } from "../api";
 
 export default function HomePage() {
   const { isLoggedIn } = useAuth();
-  const { result, links, loadingLinks, formError, submitting, shorten } =
+  const { result, links, loadingLinks, formError, submitting, shorten, deleteLink } =
     useShortener(isLoggedIn);
 
   return (
@@ -25,7 +25,12 @@ export default function HomePage() {
         />
       )}
 
-      <LinkLog links={links} loading={loadingLinks} isLoggedIn={isLoggedIn} />
+      <LinkLog
+        links={links}
+        loading={loadingLinks}
+        isLoggedIn={isLoggedIn}
+        onDelete={deleteLink}
+      />
     </>
   );
 }
